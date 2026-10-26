@@ -1,0 +1,44 @@
+[package]
+name = "deskflow-companion"
+version = "0.3.1"
+edition = "2024"
+description = "Switches a shared monitor's input (DDC/CI) to the machine Deskflow is on"
+license = "MIT"
+repository = "https://github.com/Hameed-Alahmadi/deskflow-companion"
+
+[[bin]]
+name = "dfc"
+path = "src/main.rs"
+
+[dependencies]
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+
+[target.'cfg(target_os = "linux")'.dependencies]
+libc = "0.2"
+ksni = { version = "0.3.7", default-features = false, features = ["async-io", "blocking"] }
+
+[target.'cfg(windows)'.dependencies]
+windows = { version = "0.62", features = [
+    "Win32_Foundation",
+    "Win32_Graphics_Gdi",
+    "Win32_Devices_Display",
+    "Win32_UI_HiDpi",
+    "Win32_System_Console",
+    "Win32_System_SystemInformation",
+    "Win32_System_Threading",
+    "Win32_System_LibraryLoader",
+    "Win32_Security",
+    "Win32_System_Registry",
+    "Win32_UI_WindowsAndMessaging",
+    "Win32_UI_Input",
+    "Win32_UI_Input_KeyboardAndMouse",
+    "Win32_UI_Shell",
+    "Win32_UI_Controls",
+] }
+
+[profile.release]
+opt-level = "s"
+lto = true
+strip = true
+panic = "abort"

@@ -1,0 +1,4 @@
+// Windows resources: app/tray icons and the manifest (common controls v6 for the settings window).
+1 ICON "dfc-active.ico"
+2 ICON "dfc-paused.ico"
+1 24 "dfc.manifest"
